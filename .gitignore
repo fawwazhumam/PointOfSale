@@ -1,0 +1,73 @@
+# ==============================
+# Environment / secrets
+# ==============================
+# Setiap service (api-gateway, user-service, product-service, dst) punya .env sendiri
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Go build artifacts
+# ==============================
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bin/
+/dist/
+/tmp/
+
+# Hasil `go build -o` di root tiap service (nama binary = nama folder)
+/api-gateway/api-gateway
+/merchant-service/merchant-service
+/notification-service/notification-service
+/product-service/product-service
+/transaction-service/transaction-service
+/user-service/user-service
+/warehouse-service/warehouse-service
+
+# Go workspace / module cache lokal
+go.work
+go.work.sum
+
+# ==============================
+# Test & coverage
+# ==============================
+*.cover
+coverage.out
+coverage.html
+
+# ==============================
+# Live-reload tool (air) cache
+# ==============================
+tmp/
+.air.log
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/
+
+# ==============================
+# IDE / editor
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==============================
+# OS files
+# ==============================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==============================
+# Docker local overrides
+# ==============================
+docker-compose.override.yml

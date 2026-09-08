@@ -1,0 +1,323 @@
+{
+  "info": {
+    "name": "User Service - POS",
+    "description": "Collection untuk test API user-service (roles, users, user-roles, auth, upload).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8081/api/v1"
+    },
+    {
+      "key": "user_id",
+      "value": "1"
+    },
+    {
+      "key": "role_id",
+      "value": "1"
+    },
+    {
+      "key": "user_role_id",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fawwaz\",\n  \"email\": \"fawwaz@example.com\",\n  \"password\": \"secret123\",\n  \"phone\": \"08123456789\",\n  \"photo\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users?page=1&limit=10&search=&sort_by=&sort_order=",
+              "host": ["{{base_url}}"],
+              "path": ["users"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "" },
+                { "key": "sort_by", "value": "" },
+                { "key": "sort_order", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get User By Email",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/email/fawwaz@example.com",
+              "host": ["{{base_url}}"],
+              "path": ["users", "email", "fawwaz@example.com"]
+            }
+          }
+        },
+        {
+          "name": "Get Users By Role Name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/role/admin",
+              "host": ["{{base_url}}"],
+              "path": ["users", "role", "admin"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fawwaz Updated\",\n  \"email\": \"fawwaz@example.com\",\n  \"password\": \"\",\n  \"phone\": \"08123456789\",\n  \"photo\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Roles",
+      "item": [
+        {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"cashier\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["roles"]
+            }
+          }
+        },
+        {
+          "name": "Get All Roles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["roles"]
+            }
+          }
+        },
+        {
+          "name": "Get Role By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "{{role_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"cashier-updated\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "{{role_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Role",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/roles/{{role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["roles", "{{role_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Roles",
+      "item": [
+        {
+          "name": "Assign User To Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": {{user_id}},\n  \"role_id\": {{role_id}}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user-roles",
+              "host": ["{{base_url}}"],
+              "path": ["user-roles"]
+            }
+          }
+        },
+        {
+          "name": "Get All User Roles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/user-roles?page=1&limit=10&search=&sort_by=&sort_order=",
+              "host": ["{{base_url}}"],
+              "path": ["user-roles"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "" },
+                { "key": "sort_by", "value": "" },
+                { "key": "sort_order", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User Role By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/user-roles/{{user_role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["user-roles", "{{user_role_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Edit Assign User To Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": {{user_id}},\n  \"role_id\": {{role_id}}\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user-roles/{{user_role_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["user-roles", "{{user_role_id}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Upload",
+      "item": [
+        {
+          "name": "Upload Photo",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/upload/photo",
+              "host": ["{{base_url}}"],
+              "path": ["upload", "photo"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
