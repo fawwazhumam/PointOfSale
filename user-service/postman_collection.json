@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "User Service - POS",
-    "description": "Collection untuk test API user-service (roles, users, user-roles, auth, upload).",
+    "description": "Collection untuk test API user-service. Body sengaja dikosongkan (kecuali 1 contoh format di Create User), isi sendiri sesuai kebutuhan.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -11,15 +11,16 @@
     },
     {
       "key": "user_id",
-      "value": "1"
+      "value": ""
     },
     {
       "key": "role_id",
-      "value": "1"
+      "value": "",
+      "description": "1 = Manager, 2 = Keeper (sesuai urutan seeder)"
     },
     {
       "key": "user_role_id",
-      "value": "1"
+      "value": ""
     }
   ],
   "item": [
@@ -35,7 +36,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\"\n}"
+              "raw": "{\n  \"email\": \"\",\n  \"password\": \"\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/auth/login",
@@ -47,18 +48,70 @@
       ]
     },
     {
-      "name": "Users",
+      "name": "User",
       "item": [
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users?page=&limit=&search=&sort_by=&sort_order=",
+              "host": ["{{base_url}}"],
+              "path": ["users"],
+              "query": [
+                { "key": "page", "value": "" },
+                { "key": "limit", "value": "" },
+                { "key": "search", "value": "" },
+                { "key": "sort_by", "value": "" },
+                { "key": "sort_order", "value": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete By ID",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get By Role Name",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/role/",
+              "host": ["{{base_url}}"],
+              "path": ["users", "role", ""]
+            }
+          }
+        },
         {
           "name": "Create User",
           "request": {
+            "description": "Contoh format body (values di bawah cuma contoh, ganti sesuai data yang mau kamu kirim). Field wajib diisi: name, email, password. phone & photo boleh dikosongkan.",
             "method": "POST",
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Fawwaz\",\n  \"email\": \"fawwaz@example.com\",\n  \"password\": \"secret123\",\n  \"phone\": \"08123456789\",\n  \"photo\": \"\"\n}"
+              "raw": "{\n  \"name\": \"Budi Santoso\",\n  \"email\": \"budi@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"081234567890\",\n  \"photo\": \"\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/users",
@@ -68,58 +121,7 @@
           }
         },
         {
-          "name": "Get All Users",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/users?page=1&limit=10&search=&sort_by=&sort_order=",
-              "host": ["{{base_url}}"],
-              "path": ["users"],
-              "query": [
-                { "key": "page", "value": "1" },
-                { "key": "limit", "value": "10" },
-                { "key": "search", "value": "" },
-                { "key": "sort_by", "value": "" },
-                { "key": "sort_order", "value": "" }
-              ]
-            }
-          }
-        },
-        {
-          "name": "Get User By ID",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/users/{{user_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["users", "{{user_id}}"]
-            }
-          }
-        },
-        {
-          "name": "Get User By Email",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/users/email/fawwaz@example.com",
-              "host": ["{{base_url}}"],
-              "path": ["users", "email", "fawwaz@example.com"]
-            }
-          }
-        },
-        {
-          "name": "Get Users By Role Name",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/users/role/admin",
-              "host": ["{{base_url}}"],
-              "path": ["users", "role", "admin"]
-            }
-          }
-        },
-        {
-          "name": "Update User",
+          "name": "Edit User",
           "request": {
             "method": "PUT",
             "header": [
@@ -127,7 +129,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Fawwaz Updated\",\n  \"email\": \"fawwaz@example.com\",\n  \"password\": \"\",\n  \"phone\": \"08123456789\",\n  \"photo\": \"\"\n}"
+              "raw": "{\n  \"name\": \"\",\n  \"email\": \"\",\n  \"password\": \"\",\n  \"phone\": \"\",\n  \"photo\": \"\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/users/{{user_id}}",
@@ -137,13 +139,23 @@
           }
         },
         {
-          "name": "Delete User",
+          "name": "Upload Photo User",
           "request": {
-            "method": "DELETE",
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
             "url": {
-              "raw": "{{base_url}}/users/{{user_id}}",
+              "raw": "{{base_url}}/upload/photo",
               "host": ["{{base_url}}"],
-              "path": ["users", "{{user_id}}"]
+              "path": ["upload", "photo"]
             }
           }
         }
@@ -153,26 +165,9 @@
       "name": "Roles",
       "item": [
         {
-          "name": "Create Role",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"cashier\"\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/roles",
-              "host": ["{{base_url}}"],
-              "path": ["roles"]
-            }
-          }
-        },
-        {
           "name": "Get All Roles",
           "request": {
+            "description": "Daftar semua role yang ada di sistem (master data), bukan cuma yang lagi di-assign ke user.",
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/roles",
@@ -193,6 +188,24 @@
           }
         },
         {
+          "name": "Create Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/roles",
+              "host": ["{{base_url}}"],
+              "path": ["roles"]
+            }
+          }
+        },
+        {
           "name": "Update Role",
           "request": {
             "method": "PUT",
@@ -201,7 +214,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"cashier-updated\"\n}"
+              "raw": "{\n  \"name\": \"\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/roles/{{role_id}}",
@@ -224,37 +237,37 @@
       ]
     },
     {
-      "name": "User Roles",
+      "name": "Assign Role",
       "item": [
         {
-          "name": "Assign User To Role",
+          "name": "Edit Assign User Role",
           "request": {
-            "method": "POST",
+            "method": "PUT",
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"user_id\": {{user_id}},\n  \"role_id\": {{role_id}}\n}"
+              "raw": "{\n  \"user_id\": 0,\n  \"role_id\": 0\n}"
             },
             "url": {
-              "raw": "{{base_url}}/user-roles",
+              "raw": "{{base_url}}/assign-role/{{user_role_id}}",
               "host": ["{{base_url}}"],
-              "path": ["user-roles"]
+              "path": ["assign-role", "{{user_role_id}}"]
             }
           }
         },
         {
-          "name": "Get All User Roles",
+          "name": "Get All Assign Role",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/user-roles?page=1&limit=10&search=&sort_by=&sort_order=",
+              "raw": "{{base_url}}/assign-role?page=&limit=&search=&sort_by=&sort_order=",
               "host": ["{{base_url}}"],
-              "path": ["user-roles"],
+              "path": ["assign-role"],
               "query": [
-                { "key": "page", "value": "1" },
-                { "key": "limit", "value": "10" },
+                { "key": "page", "value": "" },
+                { "key": "limit", "value": "" },
                 { "key": "search", "value": "" },
                 { "key": "sort_by", "value": "" },
                 { "key": "sort_order", "value": "" }
@@ -263,57 +276,31 @@
           }
         },
         {
-          "name": "Get User Role By ID",
+          "name": "Get Assign Role By ID",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/user-roles/{{user_role_id}}",
+              "raw": "{{base_url}}/assign-role/{{user_role_id}}",
               "host": ["{{base_url}}"],
-              "path": ["user-roles", "{{user_role_id}}"]
+              "path": ["assign-role", "{{user_role_id}}"]
             }
           }
         },
         {
-          "name": "Edit Assign User To Role",
+          "name": "Create Assign User Role",
           "request": {
-            "method": "PUT",
+            "method": "POST",
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"user_id\": {{user_id}},\n  \"role_id\": {{role_id}}\n}"
+              "raw": "{\n  \"user_id\": 0,\n  \"role_id\": 0\n}"
             },
             "url": {
-              "raw": "{{base_url}}/user-roles/{{user_role_id}}",
+              "raw": "{{base_url}}/assign-role",
               "host": ["{{base_url}}"],
-              "path": ["user-roles", "{{user_role_id}}"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Upload",
-      "item": [
-        {
-          "name": "Upload Photo",
-          "request": {
-            "method": "POST",
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "image",
-                  "type": "file",
-                  "src": ""
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{base_url}}/upload/photo",
-              "host": ["{{base_url}}"],
-              "path": ["upload", "photo"]
+              "path": ["assign-role"]
             }
           }
         }

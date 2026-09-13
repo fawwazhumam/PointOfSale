@@ -42,6 +42,17 @@ func (u *userRepository) AssignUserToRole(ctx context.Context, userID uint, role
 	default:
 	}
 
+	var count int64
+	if err := u.db.WithContext(ctx).Model(&model.UserRole{}).
+		Where("user_id = ? AND role_id = ?", userID, roleID).
+		Count(&count).Error; err != nil {
+		log.Errorf("[UserRepository] AssignUserToRole - 2: %v", err)
+		return err
+	}
+	if count > 0 {
+		return errors.New("user already has this role assigned")
+	}
+
 	userRole := model.UserRole{
 		UserID: userID,
 		RoleID: roleID,
@@ -143,13 +154,12 @@ func (u *userRepository) GetAllUserRoles(ctx context.Context, page, limit int, s
 
 	// Apply sorting
 	if sortBy == "" {
-		if sortOrder == "" {
-			sortOrder = "asc"
-		}
-		query = query.Order(sortBy + " " + sortOrder)
-	} else {
-		query = query.Order("id desc")
+		sortBy = "id"
 	}
+	if sortOrder == "" {
+		sortOrder = "desc"
+	}
+	query = query.Order(sortBy + " " + sortOrder)
 
 	// Apply pagination
 	offset := (page - 1) * limit
@@ -230,7 +240,7 @@ func (u *userRepository) GetUserByEmail(ctx context.Context, email string) (*mod
 
 	modelUsers := model.User{}
 
-	if err := u.db.WithContext(ctx).Select("id", "name", "email", "photo", "phone", "created_at").
+	if err := u.db.WithContext(ctx).Select("id", "name", "email", "password", "photo", "phone", "created_at").
 	Where("email = ?", email).
 	Preload("Roles").
 	First(&modelUsers).Error; err != nil {

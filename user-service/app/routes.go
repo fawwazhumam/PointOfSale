@@ -21,11 +21,11 @@ func SetupRoutes(app *fiber.App, container *Container) {
 	users.Put("/:id", container.UserController.UpdateUser)
 	users.Delete("/:id", container.UserController.DeleteUser)
 
-	userRoles := api.Group("/user-roles")
-	userRoles.Post("/", container.UserController.AssignUserToRole)
-	userRoles.Get("/", container.UserController.GetAllUserRoles)
-	userRoles.Get("/:id", container.UserController.GetUserRoleByID)
-	userRoles.Put("/:id", container.UserController.EditAssignUserToRole)
+	assignRole := api.Group("/assign-role")
+	assignRole.Post("/", container.UserController.AssignUserToRole)
+	assignRole.Get("/", container.UserController.GetAllUserRoles)
+	assignRole.Get("/:id", container.UserController.GetUserRoleByID)
+	assignRole.Put("/:id", container.UserController.EditAssignUserToRole)
 
 	auth := api.Group("/auth")
 	auth.Post("/login", container.AuthController.Login)
