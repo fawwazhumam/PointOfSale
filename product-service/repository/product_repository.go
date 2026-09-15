@@ -122,7 +122,7 @@ func (p *productRepository) UpdateProduct(ctx context.Context, product *model.Pr
 			"category_id": product.CategoryID,
 			"thumbnail": product.Thumbnail,
 			"is_popular": product.IsPopular,
-			"updated_at": product.UpdateAt,
+			"updated_at": product.UpdatedAt,
 		}
 
 		return p.db.WithContext(ctx).Model(&existingProduct).Updates(updates).Error

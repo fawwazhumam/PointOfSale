@@ -1,15 +1,14 @@
-module pos/product-service
+module pos/warehouse-service
 
 go 1.27.0
 
 require (
 	github.com/go-playground/validator/v10 v10.30.4
 	github.com/gofiber/fiber/v3 v3.5.0
-	github.com/rs/zerolog v1.35.1
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/viper v1.21.0
 	github.com/supabase-community/storage-go v0.8.1
-	gorm.io/driver/postgres v1.6.2
+	gorm.io/driver/postgres v1.6.3
 	gorm.io/gorm v1.31.2
 )
 

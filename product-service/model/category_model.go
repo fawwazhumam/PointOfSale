@@ -8,7 +8,7 @@ type Category struct {
 	Tagline   string  `json:"tagline" gorm:"type:varchar(100);uniqueIndex"`
 	Photo     string  `json:"photo" gorm:"type:text"`
 	CreatedAt time.Time  `json:"created_at"`
-	UpdateAt  *time.Time `json:"updated_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
 
 	Products []Product `json:"products" gorm:"foreignKey:CategoryID"`
 }

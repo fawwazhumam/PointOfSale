@@ -12,7 +12,7 @@ type Product struct {
 	Price float64 `json:"price" gorm:"not null"`
 	IsPopular bool `json:"is_popular" gorm:"default:false"`
 	CreatedAt time.Time `json:"created_at"`
-	UpdateAt *time.Time `json:"updated_at"`
+	UpdatedAt *time.Time `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at"`
 
 	Category Category `json:"category,omitempty" gorm:"foreignKey:CategoryID"`

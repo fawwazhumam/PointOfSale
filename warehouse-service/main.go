@@ -1,6 +1,6 @@
 package main
 
-import "pos/product-service/cmd"
+import "pos/warehouse-service/cmd"
 
 func main() {
 	cmd.Execute()
